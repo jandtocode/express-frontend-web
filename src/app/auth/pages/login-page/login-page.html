@@ -13,26 +13,31 @@
           <fieldset class="fieldset">
 
             <label class="label">Número Identidad</label>
-            <input type="text" class="input" formControlName="identifier" placeholder="Número Identidad" />
-            @if( formUtils.isValidField(loginForm, 'identifier') ){
+            <input type="text" class="input" formControlName="identification" placeholder="Número Identidad" />
+            @if( formUtils.isValidField(loginForm, 'identification') ){
             <span class="text-error">
-              {{ formUtils.getFieldError(loginForm, 'identifier') }}
+              {{ formUtils.getFieldError(loginForm, 'identification') }}
             </span>
             }
 
             <label class="label">Contraseña</label>
-            <input type="password" 
-            class="input" 
-            formControlName="password" 
-            placeholder="Contraseña" />
-             @if( formUtils.isValidField(loginForm, 'password') ){
+            <input type="password" class="input" formControlName="password" placeholder="Contraseña" />
+            @if( formUtils.isValidField(loginForm, 'password') ){
             <span class="text-error">
               {{ formUtils.getFieldError(loginForm, 'password') }}
             </span>
             }
 
-            <button class="btn btn-neutral mt-4">Login</button>
-            <button class="btn btn-secondary mt-4">Registrate con nosotros</button>
+            <button class="btn btn-neutral mt-4"
+            type="submit">Login</button>
+            @if (loginError) {
+            <span class="text-error">
+              {{ loginError }}
+            </span>
+            }
+
+            <button class="btn btn-secondary mt-4"
+            type="button">Registrate con nosotros</button>
           </fieldset>
         </form>
       </div>

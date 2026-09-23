@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
+import { AuthService } from '@auth/services/auth.service';
+import { Router } from '@angular/router';
+import { LoginErrorResponse } from '@auth/interfaces/login-error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -11,26 +15,45 @@ import { FormUtils } from '../../../utils/form-utils';
 export class LoginPageComponent {
 
   private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   formUtils = FormUtils;
+  loginError = '';
 
   loginForm = this.fb.nonNullable.group({
-    identifier: ['', [Validators.required, Validators.maxLength(15)]],
+    identification: ['', [Validators.required, Validators.maxLength(15)]],
     password: ['', [Validators.required, Validators.maxLength(15)]],
   });
 
-  onLogin() {
-
+  onLogin(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
-    this.loginForm.reset({
-      identifier: '',
-      password: '',
+    this.loginError = '';
+
+    this.authService.login(this.loginForm.getRawValue()).subscribe({
+      next: (response) => {
+        this.router.navigate(['/dashboard/user', response.name]);
+      },
+
+      error: (error: HttpErrorResponse) => {
+
+        console.log('Error completo:', error);
+        console.log('Status:', error.status);
+        console.log('Body:', error.error);
+
+        const loginErrorResponse =
+          error.error as LoginErrorResponse;
+
+        this.loginError =
+          loginErrorResponse.message ?? 'Error al iniciar sesión.';
+      },
     });
+
+
   }
-
-
 
 }
