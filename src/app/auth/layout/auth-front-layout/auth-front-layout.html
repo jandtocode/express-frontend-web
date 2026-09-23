@@ -1,0 +1,17 @@
+<div class="min-h-screen flex flex-col bg-base-100">
+  
+  <!-- Tu Navbar (100% ancho de pantalla) -->
+  <navbar-auth-component></navbar-auth-component>
+
+  <!-- El contenedor principal se estira a pantalla completa -->
+  <main class="flex-grow w-full">
+    <!-- Quitamos 'container' para que el fondo azul o contenido ocupe todo -->
+    <section class="w-full">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+
+  <!-- Tu Footer (100% ancho de pantalla) -->
+  <footer-auth--component></footer-auth--component>
+
+</div>

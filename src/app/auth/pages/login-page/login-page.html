@@ -1,0 +1,41 @@
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left">
+      <h1 class="text-5xl font-bold">Bienvenid@s!</h1>
+      <p class="py-6">
+        Ingresa tus credenciales para acceder a tu cuenta. Si aún no tienes una cuenta, puedes registrarte con
+        nosotros para disfrutar de todos los beneficios que ofrecemos.
+      </p>
+    </div>
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div class="card-body">
+        <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <fieldset class="fieldset">
+
+            <label class="label">Número Identidad</label>
+            <input type="text" class="input" formControlName="identifier" placeholder="Número Identidad" />
+            @if( formUtils.isValidField(loginForm, 'identifier') ){
+            <span class="text-error">
+              {{ formUtils.getFieldError(loginForm, 'identifier') }}
+            </span>
+            }
+
+            <label class="label">Contraseña</label>
+            <input type="password" 
+            class="input" 
+            formControlName="password" 
+            placeholder="Contraseña" />
+             @if( formUtils.isValidField(loginForm, 'password') ){
+            <span class="text-error">
+              {{ formUtils.getFieldError(loginForm, 'password') }}
+            </span>
+            }
+
+            <button class="btn btn-neutral mt-4">Login</button>
+            <button class="btn btn-secondary mt-4">Registrate con nosotros</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

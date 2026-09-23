@@ -3,7 +3,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "@auth/*": ["./src/app/auth/*"],
+      "@environments/*": ["./src/environments/*"]
+    },
     "outDir": "./out-tsc/app",
+    "rootDir": "./src",
     "types": []
   },
   "include": [
