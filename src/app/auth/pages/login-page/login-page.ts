@@ -1,26 +1,31 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, ViewChild } from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { FormUtils } from '../../../utils/form-utils';
 import { AuthService } from '@auth/services/auth.service';
-import { Router } from '@angular/router';
 import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
-import { HttpErrorResponse } from '@angular/common/http';
-
-
+import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ModalErrorComponent],
   templateUrl: './login-page.html',
 })
 export class LoginPageComponent {
-
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  @ViewChild(ModalErrorComponent)
+  modal!: ModalErrorComponent;
+
   formUtils = FormUtils;
-  loginError = '';
 
   loginForm = this.fb.nonNullable.group({
     identification: ['', [Validators.required, Validators.maxLength(15)]],
@@ -33,7 +38,6 @@ export class LoginPageComponent {
       return;
     }
 
-    this.loginError = '';
 
     this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response) => {
@@ -41,21 +45,27 @@ export class LoginPageComponent {
       },
 
       error: (error: HttpErrorResponse) => {
-
-        console.log('Error completo:', error);
-        console.log('Status:', error.status);
-        console.log('Body:', error.error);
-
-
         const generalErrorResponse =
-          error.error as GeneralErrorResponse;
+          error.error as Partial<GeneralErrorResponse>;
 
-        this.loginError =
-          generalErrorResponse.message ?? 'Error al iniciar sesión.';
+        const message =
+          generalErrorResponse?.message ??
+          (error.status === 0
+            ? 'No se pudo conectar con el servidor.'
+            : 'Error al iniciar sesión.');
+
+        this.modal.open(
+          message,
+          'Error de inicio de sesión',
+          error.status
+        );
+
+        console.error('Error al iniciar sesión:', error);
       },
     });
-
-
   }
 
+  goToRegister(): void {
+    this.router.navigate(['/auth/register']);
+  }
 }

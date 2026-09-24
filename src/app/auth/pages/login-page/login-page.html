@@ -30,16 +30,13 @@
 
             <button class="btn btn-neutral mt-4"
             type="submit">Login</button>
-            @if (loginError) {
-            <span class="text-error">
-              {{ loginError }}
-            </span>
-            }
-
+            
             <button class="btn btn-secondary mt-4"
-            type="button">Registrate con nosotros</button>
+            type="button"
+            (click)="goToRegister()">Registrate con nosotros</button>
           </fieldset>
         </form>
+        <modal-error-component #modalError></modal-error-component>
       </div>
     </div>
   </div>
