@@ -10,6 +10,8 @@ export class FormUtils {
                     return 'Este campo es requerido';
                 case 'maxlength':
                     return `Máximo ${errors['maxlength'].requiredLength} caracteres.`;
+                case 'passwordsDoNotMatch':
+                    return 'Las contraseñas no coinciden.';
 
                 default:
                     return `Error de validación no controlado (${key})`;

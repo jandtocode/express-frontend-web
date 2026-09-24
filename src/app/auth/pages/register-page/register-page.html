@@ -1,1 +1,106 @@
-<p>register-page works!</p>
+<div class="hero bg-gradient-to-br from-base-200 to-base-100 min-h-screen">
+  <div class="hero-content flex-col">
+    <div class="text-center">
+      <h1 class="text-5xl font-bold text-primary mb-4">
+        Registrate Ahora!
+      </h1>
+    </div>
+
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl border border-base-300">
+      <div class="card-body">
+        <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <fieldset class="fieldset">
+            <label class="label font-semibold text-base-content/80">
+              Nombre
+            </label>
+
+            <input type="text" class="input input-bordered focus:input-primary" formControlName="name"
+              placeholder="Nombre" />
+
+            @if (formUtils.isValidField(registerForm, 'name')) {
+            <span class="text-error">
+              {{ formUtils.getFieldError(registerForm, 'name') }}
+            </span>
+            }
+
+            <label class="label font-semibold text-base-content/80">
+              Apellido
+            </label>
+
+            <input type="text" class="input input-bordered focus:input-primary" formControlName="lastName"
+              placeholder="Apellido" />
+
+            @if (formUtils.isValidField(registerForm, 'lastName')) {
+            <span class="text-error">
+              {{ formUtils.getFieldError(registerForm, 'lastName') }}
+            </span>
+            }
+
+            <label class="label font-semibold text-base-content/80">
+              Número de identidad
+            </label>
+
+            <input type="text" class="input input-bordered focus:input-primary" formControlName="identification"
+              placeholder="Número de identidad" />
+
+            @if (formUtils.isValidField(registerForm, 'identification')) {
+            <span class="text-error">
+              {{ formUtils.getFieldError(registerForm, 'identification') }}
+            </span>
+            }
+
+            <label class="label font-semibold text-base-content/80">
+              Password
+            </label>
+
+            <input type="password" class="input input-bordered focus:input-primary" formControlName="password"
+              placeholder="Password" />
+
+            @if (formUtils.isValidField(registerForm, 'password')) {
+            <span class="text-error">
+              {{ formUtils.getFieldError(registerForm, 'password') }}
+            </span>
+            }
+
+            <label class="label font-semibold text-base-content/80">
+              Confirmar Password
+            </label>
+
+            <input type="password" class="input input-bordered focus:input-primary" formControlName="confirmPassword"
+              placeholder="Confirmar Password" />
+
+            @if (formUtils.isValidField(registerForm, 'confirmPassword')) {
+            <span class="text-error">
+              {{ formUtils.getFieldError(registerForm, 'confirmPassword') }}
+            </span>
+            }
+
+            @if (
+            registerForm.hasError('passwordsDoNotMatch') &&
+            registerForm.get('confirmPassword')?.touched
+            ) {
+            <span class="text-error">
+              {{ formUtils.getTextError(registerForm.errors ?? {}) }}
+            </span>
+            }
+
+            <button class="btn btn-primary mt-4" type="submit">
+              Guardar
+            </button>
+            @if (registerSuccess) {
+            <span class="text-success">
+              {{ registerSuccess }}
+            </span>
+            }
+
+            @if (registerError) {
+            <span class="text-error">
+              {{ registerError }}
+            </span>
+            }
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

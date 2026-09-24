@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { FormUtils } from '../../../utils/form-utils';
 import { AuthService } from '@auth/services/auth.service';
 import { Router } from '@angular/router';
-import { LoginErrorResponse } from '@auth/interfaces/login-error.interface';
+import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+
 
 
 @Component({
@@ -45,11 +46,12 @@ export class LoginPageComponent {
         console.log('Status:', error.status);
         console.log('Body:', error.error);
 
-        const loginErrorResponse =
-          error.error as LoginErrorResponse;
+
+        const generalErrorResponse =
+          error.error as GeneralErrorResponse;
 
         this.loginError =
-          loginErrorResponse.message ?? 'Error al iniciar sesión.';
+          generalErrorResponse.message ?? 'Error al iniciar sesión.';
       },
     });
 

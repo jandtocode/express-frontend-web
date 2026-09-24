@@ -1,4 +1,4 @@
-export interface LoginErrorResponse {
+export interface GeneralErrorResponse {
     message: string;
     status:  number;
 }
