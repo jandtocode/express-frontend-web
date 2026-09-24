@@ -11,10 +11,11 @@ import { FormUtils } from '../../../utils/form-utils';
 import { AuthService } from '@auth/services/auth.service';
 import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
 import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
+import { ModalSuccessComponent } from '../../../shared/components/modal-component/modal-success/modal-success-component';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, ModalErrorComponent],
+  imports: [ReactiveFormsModule, ModalErrorComponent, ModalSuccessComponent],
   templateUrl: './login-page.html',
 })
 export class LoginPageComponent {
@@ -24,6 +25,9 @@ export class LoginPageComponent {
 
   @ViewChild(ModalErrorComponent)
   modal!: ModalErrorComponent;
+
+  @ViewChild(ModalSuccessComponent)
+  successModal!: ModalSuccessComponent;
 
   formUtils = FormUtils;
 
@@ -40,8 +44,16 @@ export class LoginPageComponent {
 
 
     this.authService.login(this.loginForm.getRawValue()).subscribe({
-      next: () => {
-        this.router.navigate(['/dashboard']);
+      next: (response) => {
+
+        this.successModal.open(
+          response.message,
+          'Autenticación correcta'
+        );
+
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 4000);
       },
 
       error: (error: HttpErrorResponse) => {
