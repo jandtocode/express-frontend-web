@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./dashboard-user/dashboard.routes').then((module) => module.authRoutes),
+      import('./dashboard/dashboard.routes').then((module) => module.authRoutes),
   },
   {
     path: '**',

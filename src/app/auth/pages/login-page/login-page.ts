@@ -40,8 +40,8 @@ export class LoginPageComponent {
 
 
     this.authService.login(this.loginForm.getRawValue()).subscribe({
-      next: (response) => {
-        this.router.navigate(['/dashboard/user', response.name]);
+      next: () => {
+        this.router.navigate(['/dashboard']);
       },
 
       error: (error: HttpErrorResponse) => {
