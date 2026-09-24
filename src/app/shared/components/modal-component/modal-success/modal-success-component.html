@@ -1,1 +1,28 @@
-<p>modal-success-component works!</p>,
+<dialog #modalSuccess class="modal">
+  <div class="modal-box bg-base-100 border border-success/30">
+    <form method="dialog">
+      <button
+        type="submit"
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      >
+        ✕
+      </button>
+    </form>
+
+    <h3 class="text-lg font-bold text-success">
+      {{ title() }}
+    </h3>
+
+    <p class="py-4 text-base-content/70">
+      {{ message() }}
+    </p>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-success" type="submit">
+          Cerrar
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>

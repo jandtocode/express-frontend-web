@@ -8,11 +8,13 @@ import {
 } from '@angular/forms';
 import { Component, inject, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { FormUtils } from '../../../utils/form-utils';
 import { AuthService } from '@auth/services/auth.service';
 import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
 import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
+import { ModalSuccessComponent } from '../../../shared/components/modal-component/modal-success/modal-success-component';
 
 const passwordsMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -31,19 +33,23 @@ const passwordsMatchValidator: ValidatorFn = (
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule, ModalErrorComponent],
+  imports: [ReactiveFormsModule, ModalErrorComponent, ModalSuccessComponent],
   templateUrl: './register-page.html',
 })
 export class RegisterPageComponent {
+
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   @ViewChild(ModalErrorComponent)
   modal!: ModalErrorComponent;
 
+  @ViewChild(ModalSuccessComponent)
+  successModal!: ModalSuccessComponent;
+
   formUtils = FormUtils;
 
-  registerSuccess = '';
 
   registerForm = this.fb.nonNullable.group(
     {
@@ -64,14 +70,19 @@ export class RegisterPageComponent {
       return;
     }
 
-    this.registerSuccess = '';
 
     this.authService.register(this.registerForm.getRawValue()).subscribe({
       next: (response) => {
-        this.registerSuccess = response.message;
         this.registerForm.reset();
 
-        console.log('Registro exitoso:', response);
+        this.successModal.open(
+          response.message,
+          'Registro exitoso'
+        );
+
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+        }, 4000);
       },
 
       error: (error: HttpErrorResponse) => {
