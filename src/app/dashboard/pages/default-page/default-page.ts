@@ -14,7 +14,6 @@ export class DefaultPageComponent implements OnInit {
   errorMessage = signal('');
 
   ngOnInit(): void {
-    console.log('Iniciando petición dashboard');
 
     this.dashboardService.dashboardDefault().subscribe({
       next: (response) => {
