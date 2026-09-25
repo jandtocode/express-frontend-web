@@ -37,7 +37,8 @@
           </fieldset>
         </form>
         <modal-error-component #modalError></modal-error-component>
-        <modal-success-component #modalSuccess></modal-success-component>
+        <modal-success-component #modalSuccess
+        (closed)="goToDashboard()"></modal-success-component>
       </div>
     </div>
   </div>

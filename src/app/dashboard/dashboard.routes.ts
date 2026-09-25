@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { DashboardFrontLayout } from './layout/dashboard-front-layout/dashboard-front-layout';
 import { RechargePageComponent } from './pages/recharge-page/recharge-page';
-import { UserPageComponent } from './pages/user-page/user-page';
 import { DefaultPageComponent } from './pages/default-page/default-page';
+import { BalancePageComponent } from './pages/balance-page/balance-page';
 
 
 export const authRoutes: Routes = [
@@ -16,7 +16,7 @@ export const authRoutes: Routes = [
       },
       {
         path: 'user',
-        component: UserPageComponent,
+        component: BalancePageComponent,
       },
       {
         path: 'recharge',

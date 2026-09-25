@@ -17,7 +17,8 @@ export class AuthService {
     login(user: LoginUser): Observable<LoginSuccessResponse> {
         return this.http.post<LoginSuccessResponse>(
             `${baseUrl}/auth/login`,
-            user
+            user,
+            { withCredentials: true }
         );
     }
 

@@ -50,10 +50,6 @@ export class LoginPageComponent {
           response.message,
           'Autenticación correcta'
         );
-
-        setTimeout(() => {
-          this.router.navigate(['/dashboard']);
-        }, 4000);
       },
 
       error: (error: HttpErrorResponse) => {
@@ -80,4 +76,8 @@ export class LoginPageComponent {
   goToRegister(): void {
     this.router.navigate(['/auth/register']);
   }
+
+  goToDashboard(): void {
+  this.router.navigate(['/dashboard']);
+}
 }
