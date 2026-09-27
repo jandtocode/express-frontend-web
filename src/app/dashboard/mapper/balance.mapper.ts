@@ -2,12 +2,12 @@ import { Balance, BalanceResponseBackend } from "../interfaces/balance-interface
 
 export class BalanceMapper {
     
-    static mapBalanceResponseBackToBalanceUser(b_response: BalanceResponseBackend): Balance {
+    static mapBalanceResponseBackToBalanceUser(balance: BalanceResponseBackend): Balance {
         return {
-            userName: b_response.userName,
-            currentBalance: b_response.currentBalance,
-            lastRecharge: b_response.lastRecharge,
-            totalTrips: b_response.totalTrips
+            userName: balance.userName,
+            currentBalance: balance.currentBalance,
+            lastRecharge: balance.lastRecharge,
+            totalTrips: balance.totalTrips
         };
     }
 }

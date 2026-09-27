@@ -18,15 +18,11 @@ export class DefaultPageComponent implements OnInit {
     this.dashboardService.dashboardDefault().subscribe({
       next: (response) => {
         console.log('Respuesta recibida:', response);
-
         this.message.set(response.message);
-        this.loading.set(false);
       },
       error: (error) => {
         console.error('Error cargando el dashboard:', error);
-
         this.errorMessage.set('No se pudo cargar la información.');
-        this.loading.set(false);
       },
     });
   }
