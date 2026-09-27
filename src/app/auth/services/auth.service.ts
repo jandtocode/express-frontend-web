@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { LoginSuccessResponse } from '@auth/interfaces/login-success.interface';
-import { RegisterSuccessResponse } from '@auth/interfaces/register-success.interface';
-import { LoginUser } from '@auth/interfaces/user-login.interface';
-import { RegisterUser } from '@auth/interfaces/user-register.interface';
+import { Login, LoginResponseBackend } from '@auth/interfaces/login-interface/login.interface';
+import { Register, RegisterResponseBackend } from '@auth/interfaces/register-interface/register.interface';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
 
@@ -14,16 +12,16 @@ export class AuthService {
 
     private http = inject(HttpClient);
 
-    login(user: LoginUser): Observable<LoginSuccessResponse> {
-        return this.http.post<LoginSuccessResponse>(
+    login(user: Login): Observable<LoginResponseBackend> {
+        return this.http.post<LoginResponseBackend>(
             `${baseUrl}/auth/login`,
             user,
             { withCredentials: true }
         );
     }
 
-    register(user: RegisterUser): Observable<RegisterSuccessResponse> {
-        return this.http.post<RegisterSuccessResponse>(
+    register(user: Register): Observable<RegisterResponseBackend> {
+        return this.http.post<RegisterResponseBackend>(
             `${baseUrl}/auth/register`,
             user
         );

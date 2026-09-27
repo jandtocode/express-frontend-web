@@ -12,5 +12,3 @@ export interface Balance {
   lastRecharge:   Date;
   totalTrips:     number;
 }
-
-export interface BalanceRecharge{}

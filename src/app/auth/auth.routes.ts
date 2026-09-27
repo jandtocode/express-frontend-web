@@ -19,8 +19,12 @@ export const authRoutes: Routes = [
       },
       {
         path: '**',
-        component: NotFoundPage,
+        redirectTo: 'login',
       },
     ],
   },
+  {
+    path: '**',
+    redirectTo: 'login',
+  }
 ];
