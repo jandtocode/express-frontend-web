@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BalanceUserResponseBackend, DashboardDefaultResponseBackend } from '../interfaces/balance-interface/balance-response.interface';
+import { BalanceResponseBackend } from '../interfaces/balance-interface/balance.interface';
+import { DashboardDefaultResponseBackend } from '../interfaces/dashboard-interface/dashboard.interface';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
@@ -17,8 +18,8 @@ export class DashboardService {
         { withCredentials: true });
     }
 
-    balanceUser(): Observable<BalanceUserResponseBackend> {
-        return this.http.get<BalanceUserResponseBackend>(
+    balanceUser(): Observable<BalanceResponseBackend> {
+        return this.http.get<BalanceResponseBackend>(
             `${baseUrl}/dashboard/user`,
             { withCredentials: true });
     }

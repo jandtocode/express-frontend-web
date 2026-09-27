@@ -2,7 +2,7 @@ import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
 import { BalanceMapper } from '../../mapper/balance.mapper';
-import { BalanceUser } from '../../interfaces/balance-interface/balance.interface';
+import { Balance } from '../../interfaces/balance-interface/balance.interface';
 import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
 
 @Component({
@@ -16,12 +16,13 @@ import { ModalErrorComponent } from '../../../shared/components/modal-component/
   templateUrl: './balance-page.html',
 })
 export class BalancePageComponent implements OnInit {
+  
   private dashboardService = inject(DashboardService);
 
   @ViewChild(ModalErrorComponent)
   modal!: ModalErrorComponent;
 
-  balance = signal<BalanceUser | null>(null);
+  balance = signal<Balance | null>(null);
   loading = signal(true);
 
   ngOnInit(): void {

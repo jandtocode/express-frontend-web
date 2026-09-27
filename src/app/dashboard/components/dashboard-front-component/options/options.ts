@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DashboardFrontMenuOptions } from '../../../interfaces/dashboard-front-interface/dashboard-front.interface';
+import { DashboardFrontMenuOptions } from '../../../interfaces/dashboard-interface/dashboard.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
