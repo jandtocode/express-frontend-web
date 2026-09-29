@@ -4,6 +4,7 @@ import { BalanceResponseBackend } from '../interfaces/balance-interface/balance.
 import { DashboardDefaultResponseBackend } from '../interfaces/dashboard-interface/dashboard.interface';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { CalculateRecharge, RechargeCalculatedResponseBackend } from '../interfaces/recharge-interface/recharge.interface';
 
 const baseUrl = environment.baseUrl;
 
@@ -21,6 +22,13 @@ export class DashboardService {
     balanceUser(): Observable<BalanceResponseBackend> {
         return this.http.get<BalanceResponseBackend>(
             `${baseUrl}/dashboard/user`,
+            { withCredentials: true });
+    }
+
+    rechargeCalculated(calculate: CalculateRecharge): Observable<RechargeCalculatedResponseBackend> {
+        return this.http.post<RechargeCalculatedResponseBackend>(
+            `${baseUrl}/dashboard/recharge/calculate`,
+            calculate,
             { withCredentials: true });
     }
 

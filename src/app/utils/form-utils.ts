@@ -12,6 +12,8 @@ export class FormUtils {
                     return `Máximo ${errors['maxlength'].requiredLength} caracteres.`;
                 case 'passwordsDoNotMatch':
                     return 'Las contraseñas no coinciden.';
+                case 'min':
+                    return 'El valor debe ser mayor a 0.';
 
                 default:
                     return `Error de validación no controlado (${key})`;

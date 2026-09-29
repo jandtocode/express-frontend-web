@@ -1,1 +1,202 @@
-<p>recharge-page works!</p>,
+<div class="min-h-screen bg-gradient-to-br from-base-200 to-base-100 p-6">
+  <div class="max-w-2xl mx-auto">
+
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold flex items-center gap-3">
+        Recarga tu tarjeta
+        <span class="text-primary text-3xl">++</span>
+        <i class="fa-regular fa-id-card text-primary text-3xl ml-2"></i>
+      </h2>
+    </div>
+
+    <!-- Formulario -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 mb-8">
+      <div class="card-body">
+        <form [formGroup]="rechargeForm" class="space-y-6">
+
+          <!-- Tipo de pago -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              Tipo de pago:
+            </label>
+
+            <div class="flex gap-6 mt-2">
+              <label class="label cursor-pointer gap-2">
+                <input type="radio" formControlName="typePayment" value="Efectivo" class="radio radio-primary" />
+                <span class="label-text font-medium">Efectivo</span>
+              </label>
+
+              <label class="label cursor-pointer gap-2">
+                <input type="radio" formControlName="typePayment" value="Tarjeta" class="radio radio-primary" />
+                <span class="label-text font-medium">Tarjeta</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Nombre -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              Nombre:
+            </label>
+
+            <input type="text" formControlName="name" placeholder="Nombre"
+              class="input input-bordered focus:input-primary mx-3" />
+
+            @if (formUtils.isValidField(rechargeForm, 'name')) {
+            <span class="text-error text-sm mx-3">
+              {{ formUtils.getFieldError(rechargeForm, 'name') }}
+            </span>
+            }
+          </div>
+
+          <!-- Apellido -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              Apellido:
+            </label>
+
+            <input type="text" formControlName="lastName" placeholder="Apellido"
+              class="input input-bordered focus:input-primary mx-3" />
+
+            @if (formUtils.isValidField(rechargeForm, 'lastName')) {
+            <span class="text-error text-sm mx-3">
+              {{ formUtils.getFieldError(rechargeForm, 'lastName') }}
+            </span>
+            }
+          </div>
+
+          <!-- Banco -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              Banco:
+            </label>
+
+            <select formControlName="bank" class="select select-bordered focus:select-primary mx-6">
+              <option value="" disabled>
+                Selecciona un banco
+              </option>
+
+              @for (bank of banks; track bank.nameBank) {
+              <option [value]="bank.nameBank">
+                {{ bank.nameBank }}
+              </option>
+              }
+            </select>
+
+            @if (formUtils.isValidField(rechargeForm, 'bank')) {
+            <span class="text-error text-sm mx-6">
+              {{ formUtils.getFieldError(rechargeForm, 'bank') }}
+            </span>
+            }
+          </div>
+
+          <!-- Valor de recarga -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              Valor de la recarga:
+            </label>
+
+            <input type="number" formControlName="valueRecharge" placeholder="10000"
+              class="input input-bordered focus:input-primary mx-3" />
+
+            @if (formUtils.isValidField(rechargeForm, 'valueRecharge')) {
+            <span class="text-error text-sm mx-3">
+              {{ formUtils.getFieldError(rechargeForm, 'valueRecharge') }}
+            </span>
+            }
+          </div>
+
+          <!-- Bono regalo -->
+          <div class="form-control">
+            <label class="label font-semibold text-base-content/80">
+              ¿Aplica bono regalo?
+
+              @if (rechargeResult(); as result) {
+              @if (result.applyBonus) {
+              <span class="badge badge-success">
+                Sí
+              </span>
+              } @else {
+              <span class="badge badge-error">
+                No
+              </span>
+              }
+              } @else {
+              <span class="badge badge-neutral">
+                --
+              </span>
+              }
+            </label>
+          </div>
+
+          <!-- Botón Calcular -->
+          <button type="button" class="btn btn-outline btn-primary w-full" (click)="onCalculate()">
+            Calcular
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Resumen de recarga -->
+    <div class="card bg-gradient-to-r from-success/20 to-success/10
+      border border-success/30 shadow-lg">
+      <div class="card-body">
+        <div class="space-y-4">
+
+          <div class="flex justify-between items-center text-lg">
+            <span class="font-semibold">
+              Total recarga:
+            </span>
+
+            <span class="text-2xl font-bold text-success">
+              {{
+              (rechargeResult()?.totalRecharge ?? 0)
+              | currency: 'COP' : 'symbol-narrow' : '1.2-2'
+              }}
+            </span>
+          </div>
+
+          <div class="flex justify-between items-center text-base-content/70">
+            <span>
+              Bono regalo:
+            </span>
+
+            <span class="font-semibold">
+              + {{
+              (rechargeResult()?.bonusValue ?? 0)
+              | currency: 'COP' : 'symbol-narrow' : '1.2-2'
+              }}
+            </span>
+          </div>
+
+          <div class="divider divider-success my-2"></div>
+
+          <div class="flex justify-between items-center text-lg">
+            <span class="font-semibold">
+              Total a pagar:
+            </span>
+
+            <span class="text-2xl font-bold text-success">
+              {{
+              (rechargeResult()?.totalToPay ?? 0)
+              | currency: 'COP' : 'symbol-narrow' : '1.2-2'
+              }}
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Botón Recargar -->
+        <button class="btn btn-success btn-block mt-6">
+          Recargar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal de error -->
+<modal-error-component></modal-error-component>
