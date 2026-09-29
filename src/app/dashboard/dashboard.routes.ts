@@ -5,7 +5,7 @@ import { DefaultPageComponent } from './pages/default-page/default-page';
 import { BalancePageComponent } from './pages/balance-page/balance-page';
 
 
-export const authRoutes: Routes = [
+export const dashboardRoutes: Routes = [
   {
     path: '',
     component: DashboardFrontLayout,
