@@ -21,6 +21,12 @@ export class DashboardOptionsComponents {
         label: 'Recargar',
         sublabel: 'Tu viaje',
         route: '/dashboard/recharge'
+      },
+      {
+        icon: 'fa-solid fa-door-closed',
+        label: 'Salir',
+        sublabel: 'De la sesión',
+        route: '/auth/login'
       }
   ]
 }

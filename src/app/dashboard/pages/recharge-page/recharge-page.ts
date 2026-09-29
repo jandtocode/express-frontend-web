@@ -14,8 +14,8 @@ import {
 import { FormUtils } from '../../../utils/form-utils';
 import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
 import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
-import { CurrencyPipe } from '@angular/common';
 import { ModalSuccessComponent } from '../../../shared/components/modal-component/modal-success/modal-success-component';
+import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
