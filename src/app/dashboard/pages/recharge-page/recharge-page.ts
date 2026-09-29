@@ -15,18 +15,24 @@ import { FormUtils } from '../../../utils/form-utils';
 import { GeneralErrorResponse } from '../../../shared/interfaces/error-response.interface';
 import { ModalErrorComponent } from '../../../shared/components/modal-component/modal-error/modal-error-component';
 import { CurrencyPipe } from '@angular/common';
+import { ModalSuccessComponent } from '../../../shared/components/modal-component/modal-success/modal-success-component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-recharge-page',
-  imports: [ReactiveFormsModule, ModalErrorComponent, CurrencyPipe],
+  imports: [ReactiveFormsModule, ModalErrorComponent, ModalSuccessComponent, CurrencyPipe],
   templateUrl: './recharge-page.html',
 })
 export class RechargePageComponent {
   private dashboardService = inject(DashboardService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   @ViewChild(ModalErrorComponent)
   modal!: ModalErrorComponent;
+
+  @ViewChild(ModalSuccessComponent)
+  successModal!: ModalSuccessComponent;
 
   formUtils = FormUtils;
 
@@ -84,5 +90,43 @@ export class RechargePageComponent {
           console.error('Error al calcular la recarga:', error);
         },
       });
+  }
+
+  onRecharge(): void {
+    if (!this.rechargeResult()) {
+      return;
+    }
+
+    this.dashboardService.updateRechargeBalance().subscribe({
+      next: (response) => {
+        this.successModal.open(
+          response.message,
+          'Recarga exitosa'
+        );
+      },
+
+      error: (error: HttpErrorResponse) => {
+        const generalErrorResponse =
+          error.error as Partial<GeneralErrorResponse>;
+
+        const message =
+          generalErrorResponse?.message ??
+          (error.status === 0
+            ? 'No se pudo conectar con el servidor.'
+            : 'No se pudo aplicar la recarga.');
+
+        this.modal.open(
+          message,
+          'Error al aplicar la recarga',
+          error.status
+        );
+
+        console.error('Error al aplicar la recarga:', error);
+      },
+    });
+  }
+
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard/user']);
   }
 }

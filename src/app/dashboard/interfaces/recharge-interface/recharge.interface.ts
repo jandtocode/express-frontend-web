@@ -16,6 +16,17 @@ export interface RechargeCalculatedResponseBackend {
     bonusValue:           number;
 }
 
+
+export interface UpdateRechargeBalanceResponseBackend {
+    success:        boolean;
+    message:        string;
+    currentBalance: number;
+    lastRecharge:   Date;
+    accumulatedRecharges:     number;
+    applyBonus:     boolean;
+}
+
+
 export interface CalculateRecharge {
     typePayment: string;
     bank: string;

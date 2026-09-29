@@ -189,7 +189,7 @@
         </div>
 
         <!-- Botón Recargar -->
-        <button class="btn btn-success btn-block mt-6">
+        <button class="btn btn-success btn-block mt-6" [disabled]="!rechargeResult()" (click)="onRecharge()">
           Recargar
         </button>
       </div>
@@ -198,5 +198,9 @@
   </div>
 </div>
 
-<!-- Modal de error -->
+<modal-success-component
+  (closed)="goToDashboard()"
+>
+</modal-success-component>
+
 <modal-error-component></modal-error-component>
