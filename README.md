@@ -1,8 +1,16 @@
 # Express Jandtocode - Portal de Transporte
 
-Frontend del portal de transporte, desarrollado con Angular. La aplicación permite
-registrar usuarios, iniciar sesión, consultar el saldo de la tarjeta y realizar
-recargas con cálculo de bonos.
+Frontend de pruebas del portal de transporte, desarrollado con Angular y pensado
+para la **práctica de QA**.
+
+La idea no es automatizar por automatizar, sino **observar el comportamiento de
+la aplicación, diseñar casos de prueba, encontrar errores y desarrollar criterio
+técnico** para decidir qué probar y por qué. El frontend forma parte de un
+ejercicio que incluye escenarios funcionales y posibles fallas, por lo que
+detectar comportamientos inesperados también es parte del aprendizaje.
+
+La aplicación permite registrar usuarios, iniciar sesión, consultar el saldo de
+la tarjeta y realizar recargas con cálculo de bonos.
 
 Este frontend consume la API del backend del proyecto. **Para que funcione, es
 obligatorio descargar y ejecutar primero el backend:**
