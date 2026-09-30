@@ -1,59 +1,92 @@
-# ProjectExpressFrontend
+# Express Jandtocode - Portal de Transporte
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Frontend del portal de transporte, desarrollado con Angular. La aplicación permite
+registrar usuarios, iniciar sesión, consultar el saldo de la tarjeta y realizar
+recargas con cálculo de bonos.
 
-## Development server
+Este frontend consume la API del backend del proyecto. **Para que funcione, es
+obligatorio descargar y ejecutar primero el backend:**
 
-To start a local development server, run:
+[https://github.com/jandtocode/express-backend-web](https://github.com/jandtocode/express-backend-web)
 
-```bash
-ng serve
-```
+## Requisitos previos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Node.js** y **npm**
+- **Angular CLI**
+- El backend de Express Jandtocode ejecutándose en `http://localhost:8080`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Puedes instalar Angular CLI de forma global con:
 
 ```bash
-ng generate --help
+npm install -g @angular/cli
 ```
 
-## Building
+## Instalación
 
-To build the project run:
+### 1. Descargar el backend
+
+Sigue las instrucciones del README del backend para levantar la API y su base de
+datos. La API debe quedar disponible en `http://localhost:8080`.
+
+### 2. Descargar este proyecto
+
+Clona el repositorio y entra en su carpeta:
 
 ```bash
-ng build
+git clone https://github.com/jandtocode/project-express-frontend.git
+cd project-express-frontend
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Instalar las dependencias
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Desde la raíz de este proyecto, ejecuta:
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+## Ejecutar la aplicación
 
-For end-to-end (e2e) testing, run:
+Con el backend ejecutándose, inicia el servidor de desarrollo:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Después, abre [http://localhost:4200](http://localhost:4200) en el navegador.
 
-## Additional Resources
+La aplicación se recarga automáticamente al modificar los archivos del proyecto.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Funcionalidades
+
+- Registro de usuarios en `/auth/register`
+- Inicio de sesión en `/auth/login`
+- Dashboard principal en `/dashboard`
+- Consulta del saldo en `/dashboard/user`
+- Cálculo y confirmación de recargas en `/dashboard/recharge`
+
+Las rutas del dashboard requieren una sesión iniciada en el backend.
+
+## Comandos útiles
+
+Compilar el proyecto:
+
+```bash
+npm run build
+```
+
+## Configuración de la API
+
+Por defecto, el frontend utiliza la API ubicada en:
+
+```text
+http://localhost:8080/api
+```
+
+Si el backend se ejecuta en otra dirección o puerto, actualiza `baseUrl` en los
+archivos de entorno dentro de `src/environments/`.
+
+## Recursos
+
+- [Repositorio del backend](https://github.com/jandtocode/express-backend-web)
+- [Angular CLI](https://angular.dev/tools/cli)
